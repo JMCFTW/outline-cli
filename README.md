@@ -1,4 +1,5 @@
-![CI](https://github.com/JMCFTW/outline-cli/workflows/CI/badge.svg)
+![Run tests](https://github.com/JMCFTW/outline-cli/workflows/Run%20tests/badge.svg)
+![Publish to Pypi](https://github.com/JMCFTW/outline-cli/workflows/Publish%20to%20Pypi/badge.svg)
 
 # outline-cli
 A command line tool that can help you manage your Outline VPN server more easily.
