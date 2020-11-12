@@ -1,4 +1,4 @@
-name: CI/CD
+name: Publish
 
 on:
   release:
@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Test python package
+      - name: Test
         run: |
           bash test.sh
   deploy:
