@@ -1,0 +1,12 @@
+Hi {username},
+
+You’re invited to connect to my Outline server. Use it to access the open internet, no matter where you are. Follow the instructions on your invitation link below to download the Outline App and get connected.
+
+https://s3.amazonaws.com/outline-vpn/invite.html#{accessUrl}
+
+-----
+
+Having trouble accessing the invitation link?
+
+Copy your access key: {accessUrl}
+Follow our invitation instructions on GitHub: https://github.com/Jigsaw-Code/outline-client/blob/master/docs/invitation-instructions.md

@@ -1,0 +1,6 @@
+.python-version
+Pipfile*
+__pycache__
+app.ini
+.eggs
+version.txt

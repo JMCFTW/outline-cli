@@ -1,0 +1,3 @@
+include src/outline_cli/templates/*.txt
+include README.md
+include LICENSE
