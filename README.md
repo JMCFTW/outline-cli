@@ -19,7 +19,7 @@ pip install outline-cli
 
 2. Put your gmail and Outline VPN credential information to app.ini.
 
-	[Example](example-app.ini)
+	[Example](https://github.com/JMCFTW/outline-cli/blob/main/example-app.ini)
 
 
 3. Run outline cli with following command:
