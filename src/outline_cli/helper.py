@@ -2,11 +2,71 @@ import configparser
 import pkgutil
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from inspect import getfullargspec
+
+from PyInquirer import prompt
 
 from outline_cli.gmail import Gmail
+from outline_cli.helper import get_config_from_app_ini
+from outline_cli.outline import OutlineVPN
 
 config = configparser.ConfigParser()
 config.read("app.ini", encoding="utf-8")
+
+
+def get_public_methods(instance):
+    return [
+        method
+        for method in dir(instance)
+        if callable(getattr(instance, method)) and not method.startswith("_")
+    ]
+
+
+def init_outline():
+    return OutlineVPN(
+        certSha256=get_config_from_app_ini("OutlineVPN", "certSha256"),
+        apiUrl=get_config_from_app_ini("OutlineVPN", "apiUrl"),
+    )
+
+
+def get_method_user_want_to_call(methods):
+    return prompt(
+        [
+            {
+                "type": "list",
+                "name": "method",
+                "message": "Please choose which method you want to call? ",
+                "choices": methods,
+            }
+        ]
+    )["method"]
+
+
+def init_cli():
+    outline_client = init_outline()
+    return outline_client, get_public_methods(outline_client)
+
+
+def get_method_arguments(instance, method):
+    method_arguments = getfullargspec(getattr(instance, method)).args
+    method_arguments.pop(0)  # NOTE: Pop 'self'
+    return method_arguments
+
+
+def execute_method(outline_client, method_user_want_to_call, method_arguments):
+    if len(method_arguments) > 0:
+        print(
+            getattr(outline_client, method_user_want_to_call)(
+                **prompt(
+                    [
+                        {"type": "input", "name": arg, "message": f"{arg} :"}
+                        for arg in method_arguments
+                    ]
+                )
+            )
+        )
+    else:
+        print(getattr(outline_client, method_user_want_to_call)())
 
 
 def get_config_from_app_ini(section_name, key):
