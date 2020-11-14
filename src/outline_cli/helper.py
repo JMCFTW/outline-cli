@@ -1,7 +1,5 @@
 import configparser
 import pkgutil
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from inspect import getfullargspec
 
 from PyInquirer import prompt
@@ -73,21 +71,14 @@ def send_email(email, username, accessUrl):
     gmail_user = get_config_from_app_ini("Gmail", "EMAIL")
     gmail_password = get_config_from_app_ini("Gmail", "APP_PASSWORD")
 
-    msg = MIMEMultipart()
-    msg["Subject"] = "VPN 開通"
-    msg["From"] = gmail_user
-    msg["To"] = email
-    msg.preamble = "Multipart massage.\n"
-
-    part = MIMEText(
-        pkgutil.get_data(__package__, "templates/mail_template.txt")
-        .decode()
-        .format(username=username, accessUrl=accessUrl)
-    )
-    msg.attach(part)
-
     gmail = Gmail(gmail_user, gmail_password)
-    gmail.send(msg)
+    gmail.draft(
+        to_email=email,
+        message=pkgutil.get_data(__package__, "templates/mail_template.txt")
+        .decode()
+        .format(username=username, accessUrl=accessUrl),
+    )
+    gmail.send()
     gmail.quit()
 
     print(f"Email sent to {email}")
