@@ -32,7 +32,7 @@ class Gmail:
 
     def draft(self, to_email, message, subject="VPN 開通"):
         self.message["Subject"] = subject
-        self.message["From"] = self.gmail_user
+        self.message["From"] = self.user
         self.message["To"] = to_email
         self.message.preamble = "Multipart massage.\n"
         part = MIMEText(message)
