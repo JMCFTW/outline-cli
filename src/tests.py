@@ -15,6 +15,8 @@ from outline_cli.outline import OutlineVPN
 
 
 class TestOutlineVPN(unittest.TestCase):
+    """Test Outline VPN"""
+
     @classmethod
     def setUpClass(cls):
         cls.client = OutlineVPN("test_certSha256", "https://test_apiUrl")
@@ -129,6 +131,8 @@ class TestOutlineVPN(unittest.TestCase):
 
 
 class TestHelper(unittest.TestCase):
+    """Test helper"""
+
     def test_get_config_from_app_ini(self):
         self.assertEqual(get_config_from_app_ini("Gmail", "EMAIL"), "your_email")
 
@@ -162,9 +166,12 @@ class TestHelper(unittest.TestCase):
 
 
 class TestGmail(unittest.TestCase):
+    """Test gmail"""
+
     @patch.object(Gmail, "_Gmail__login")
     def test_gmail(self, mock):
         server = Gmail("user", "password")
+        self.assertEqual(call_count, 1)
         server.draft("test@gmail.com", "Hello world", "Subject")
         server.send = MagicMock()
         server.send()
@@ -172,6 +179,8 @@ class TestGmail(unittest.TestCase):
 
 
 class TestMain(unittest.TestCase):
+    """Test main"""
+
     def test_init_outline(self):
         self.assertIsInstance(outline_cli.init_outline(), OutlineVPN)
 
@@ -199,16 +208,18 @@ class TestMain(unittest.TestCase):
             ],
         )
 
+    @classmethod
     @patch("outline_cli.helper.prompt")
-    def test_start_cli_with_no_args_method(self, mock):
+    def test_start_cli_with_no_args_method(cls, mock):
         mock.return_value = {"method": "get_server_info"}
         try:
             outline_cli.start_cli()
         except MissingSchema:
             pass
 
+    @classmethod
     @patch("outline_cli.helper.prompt")
-    def test_start_cli_with_args_method(self, mock):
+    def test_start_cli_with_args_method(cls, mock):
         mock.return_value = {"method": "batch_create_user_by_email_list"}
         try:
             outline_cli.start_cli()
