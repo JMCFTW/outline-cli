@@ -1,3 +1,5 @@
+#!/bin/bash
+
 pip install -r requirements.txt
 pip install flake8 coverage
 flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
