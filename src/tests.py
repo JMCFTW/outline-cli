@@ -171,7 +171,7 @@ class TestGmail(unittest.TestCase):
     @patch.object(Gmail, "_Gmail__login")
     def test_gmail(self, mock):
         server = Gmail("user", "password")
-        self.assertEqual(call_count, 1)
+        self.assertEqual(mock.call_count, 1)
         server.draft("test@gmail.com", "Hello world", "Subject")
         server.send = MagicMock()
         server.send()
