@@ -1,9 +1,24 @@
-from helper import (
+from .helper import (
     execute_method,
     get_method_arguments,
     get_method_user_want_to_call,
-    init_cli,
+    get_public_methods,
+    get_config_from_app_ini,
 )
+
+from outline_cli.outline import OutlineVPN
+
+
+def init_outline():
+    return OutlineVPN(
+        certSha256=get_config_from_app_ini("OutlineVPN", "certSha256"),
+        apiUrl=get_config_from_app_ini("OutlineVPN", "apiUrl"),
+    )
+
+
+def init_cli():
+    outline_client = init_outline()
+    return outline_client, get_public_methods(outline_client)
 
 
 def start_cli():

@@ -7,11 +7,13 @@ from inspect import getfullargspec
 from PyInquirer import prompt
 
 from outline_cli.gmail import Gmail
-from outline_cli.helper import get_config_from_app_ini
-from outline_cli.outline import OutlineVPN
 
 config = configparser.ConfigParser()
 config.read("app.ini", encoding="utf-8")
+
+
+def get_config_from_app_ini(section_name, key):
+    return config.get(section_name, key)
 
 
 def get_public_methods(instance):
@@ -20,13 +22,6 @@ def get_public_methods(instance):
         for method in dir(instance)
         if callable(getattr(instance, method)) and not method.startswith("_")
     ]
-
-
-def init_outline():
-    return OutlineVPN(
-        certSha256=get_config_from_app_ini("OutlineVPN", "certSha256"),
-        apiUrl=get_config_from_app_ini("OutlineVPN", "apiUrl"),
-    )
 
 
 def get_method_user_want_to_call(methods):
@@ -40,11 +35,6 @@ def get_method_user_want_to_call(methods):
             }
         ]
     )["method"]
-
-
-def init_cli():
-    outline_client = init_outline()
-    return outline_client, get_public_methods(outline_client)
 
 
 def get_method_arguments(instance, method):
@@ -67,10 +57,6 @@ def execute_method(outline_client, method_user_want_to_call, method_arguments):
         )
     else:
         print(getattr(outline_client, method_user_want_to_call)())
-
-
-def get_config_from_app_ini(section_name, key):
-    return config.get(section_name, key)
 
 
 def get_email_list_from_file(filename):

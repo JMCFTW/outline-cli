@@ -171,7 +171,7 @@ class TestMain(unittest.TestCase):
     def test_init_outline(self):
         outline_cli.init_outline()
 
-    @patch("outline_cli.prompt")
+    @patch("outline_cli.helper.prompt")
     def test_main(self, mock):
         mock.return_value = {"method": "batch_create_user_by_email_list"}
         try:
@@ -179,7 +179,7 @@ class TestMain(unittest.TestCase):
         except (MissingSchema, TypeError):
             pass
 
-    @patch("outline_cli.prompt")
+    @patch("outline_cli.helper.prompt")
     def test_main2(self, mock):
         mock.return_value = {"method": "get_server_info"}
         try:
