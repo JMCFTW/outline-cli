@@ -21,7 +21,7 @@ setup(
     setup_requires=["setuptools_scm"],
     packages=["outline_cli"],
     package_dir={"": "src"},
-    entry_points={"console_scripts": ["outline-cli=outline_cli:init_cli"]},
+    entry_points={"console_scripts": ["outline-cli=outline_cli:start_cli"]},
     install_requires=[
         "certifi==2020.6.20",
         "chardet==3.0.4",
