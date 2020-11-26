@@ -182,7 +182,9 @@ class TestMain(unittest.TestCase):
     """Test main"""
 
     def test_init_outline(self):
-        self.assertIsInstance(outline_cli.init_outline(section="OutlineVPN-internal"), OutlineVPN)
+        self.assertIsInstance(
+            outline_cli.init_outline(section="OutlineVPN-internal"), OutlineVPN
+        )
 
     @patch("outline_cli.get_outline_server_user_want_to_use")
     def test_init_cli(self, mock):
