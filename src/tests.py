@@ -182,9 +182,14 @@ class TestMain(unittest.TestCase):
     """Test main"""
 
     def test_init_outline(self):
-        self.assertIsInstance(outline_cli.init_outline(), OutlineVPN)
+        self.assertIsInstance(
+            outline_cli.init_outline(section="OutlineVPN-internal"), OutlineVPN
+        )
 
-    def test_init_cli(self):
+    @patch("outline_cli.get_outline_server_user_want_to_use")
+    def test_init_cli(self, mock):
+        mock.return_value = "OutlineVPN-internal"
+
         client, public_methods = outline_cli.init_cli()
         self.assertIsInstance(client, OutlineVPN)
         self.assertEqual(
@@ -210,8 +215,10 @@ class TestMain(unittest.TestCase):
 
     @classmethod
     @patch("outline_cli.helper.prompt")
-    def test_start_cli_with_no_args_method(cls, mock):
-        mock.return_value = {"method": "get_server_info"}
+    @patch("outline_cli.get_outline_server_user_want_to_use")
+    def test_start_cli_with_no_args_method(cls, mock, mock2):
+        mock2.return_value = {"method": "get_server_info"}
+        mock.return_value = "OutlineVPN-internal"
         try:
             outline_cli.start_cli()
         except MissingSchema:
@@ -219,8 +226,10 @@ class TestMain(unittest.TestCase):
 
     @classmethod
     @patch("outline_cli.helper.prompt")
-    def test_start_cli_with_args_method(cls, mock):
-        mock.return_value = {"method": "batch_create_user_by_email_list"}
+    @patch("outline_cli.get_outline_server_user_want_to_use")
+    def test_start_cli_with_args_method(cls, mock, mock2):
+        mock2.return_value = {"method": "batch_create_user_by_email_list"}
+        mock.return_value = "OutlineVPN-external"
         try:
             outline_cli.start_cli()
         except (MissingSchema, TypeError):
