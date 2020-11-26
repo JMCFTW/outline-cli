@@ -10,6 +10,10 @@ config = configparser.ConfigParser()
 config.read("app.ini", encoding="utf-8")
 
 
+def get_outline_servers_config():
+    return [c for c in config.sections() if "OutlineVPN" in c]
+
+
 def get_config_from_app_ini(section_name, key):
     return config.get(section_name, key)
 
@@ -20,6 +24,19 @@ def get_public_methods(instance):
         for method in dir(instance)
         if callable(getattr(instance, method)) and not method.startswith("_")
     ]
+
+
+def get_outline_server_user_want_to_use(outline_servers):
+    return prompt(
+        [
+            {
+                "type": "list",
+                "name": "outline_server",
+                "message": "Please choose which outline server you want to use? ",
+                "choices": outline_servers,
+            }
+        ]
+    )["outline_server"]
 
 
 def get_method_user_want_to_call(methods):
