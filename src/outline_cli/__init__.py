@@ -5,9 +5,9 @@ from .helper import (
     get_config_from_app_ini,
     get_method_arguments,
     get_method_user_want_to_call,
-    get_public_methods,
-    get_outline_servers_config,
     get_outline_server_user_want_to_use,
+    get_outline_servers_config,
+    get_public_methods,
 )
 
 

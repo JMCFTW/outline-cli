@@ -1,7 +1,7 @@
 import configparser
-from os import path
 import pkgutil
 from inspect import getfullargspec
+from os import path
 
 from PyInquirer import prompt
 

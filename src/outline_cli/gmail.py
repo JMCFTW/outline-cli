@@ -30,7 +30,12 @@ class Gmail:
     def quit(self):
         self.server.quit()
 
-    def draft(self, to_email, message, subject="This is your Outline VPN connection information"):
+    def draft(
+        self,
+        to_email,
+        message,
+        subject="This is your Outline VPN connection information",
+    ):
         self.message["Subject"] = subject
         self.message["From"] = self.user
         self.message["To"] = to_email
