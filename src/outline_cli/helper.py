@@ -1,4 +1,5 @@
 import configparser
+from os import path
 import pkgutil
 from inspect import getfullargspec
 
@@ -7,7 +8,11 @@ from PyInquirer import prompt
 from outline_cli.gmail import Gmail
 
 config = configparser.ConfigParser()
-config.read("app.ini", encoding="utf-8")
+
+if path.exists("app.ini"):
+    config.read("app.ini", encoding="utf-8")
+else:
+    raise FileNotFoundError("The configuration file: app.ini is not exist!")
 
 
 def get_outline_servers_config():
