@@ -1,4 +1,5 @@
 #!/bin/bash
+set -Eeuo pipefail
 
 pip install -r requirements.txt
 pip install flake8 coverage
