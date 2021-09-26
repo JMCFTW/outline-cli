@@ -14,6 +14,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Jimmy Chen",
     author_email="jimmychen260@gmail.com",
+    license_files = ('LICENSE.txt',),
     project_urls={
         "Bug Tracker": "https://github.com/JMCFTW/outline-cli/issues",
         "Source Code": "https://github.com/JMCFTW/outline-cli/",
