@@ -24,7 +24,7 @@ setup(
     package_dir={"": "src"},
     entry_points={"console_scripts": ["outline-cli=outline_cli:start_cli"]},
     install_requires=[
-        "certifi==2022.12.7",
+        "certifi==2023.7.22",
         "chardet==3.0.4",
         "idna==2.10",
         "requests-toolbelt==0.9.1",
