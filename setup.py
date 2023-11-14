@@ -28,7 +28,7 @@ setup(
         "chardet==3.0.4",
         "idna==2.10",
         "requests-toolbelt==0.9.1",
-        "urllib3==1.26.5",
+        "urllib3==1.26.18",
         "PyInquirer==1.0.3",
     ],
     zip_safe=True,
